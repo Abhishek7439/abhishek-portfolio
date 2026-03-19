@@ -1,65 +1,74 @@
-import Image from "next/image";
+"use client";
+
+import dynamic from "next/dynamic";
+import Navbar from "@/components/Navbar";
+import BentoHero from "@/components/bento/BentoHero";
+import BentoAbout from "@/components/bento/BentoAbout";
+import BentoSkills from "@/components/bento/BentoSkills";
+import BentoProjects from "@/components/bento/BentoProjects";
+import BentoExperience from "@/components/bento/BentoExperience";
+import BentoContact from "@/components/bento/BentoContact";
+import Footer from "@/components/Footer";
+
+// Client-only (no SSR needed)
+const LoadingScreen = dynamic(() => import("@/components/LoadingScreen"), { ssr: false });
+const ScrollProgress = dynamic(() => import("@/components/ScrollProgress"), { ssr: false });
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <LoadingScreen />
+      <ScrollProgress />
+
+      {/* Noise texture overlay */}
+      <div className="noise-overlay" aria-hidden="true" />
+
+      {/* Ambient background orbs */}
+      <div aria-hidden="true">
+        <div
+          className="orb w-[600px] h-[600px] top-[-100px] left-[-200px] opacity-30"
+          style={{ background: "radial-gradient(circle, #4f1d96, transparent)" }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <div
+          className="orb w-[500px] h-[500px] top-[40%] right-[-150px] opacity-20"
+          style={{ background: "radial-gradient(circle, #0e7490, transparent)" }}
+        />
+        <div
+          className="orb w-[400px] h-[400px] bottom-[10%] left-[30%] opacity-15"
+          style={{ background: "radial-gradient(circle, #065f46, transparent)" }}
+        />
+      </div>
+
+      <div className="relative min-h-screen">
+        <Navbar />
+        <main
+          id="main-content"
+          className="max-w-[1200px] mx-auto px-5 pt-24 pb-16 space-y-5"
+        >
+          {/* Hero */}
+          <BentoHero />
+
+          {/* About + Skills */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div className="lg:col-span-2">
+              <BentoAbout />
+            </div>
+            <div>
+              <BentoSkills />
+            </div>
+          </div>
+
+          {/* Experience */}
+          <BentoExperience />
+
+          {/* Projects + Achievements + Journey */}
+          <BentoProjects />
+
+          {/* Contact */}
+          <BentoContact />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
