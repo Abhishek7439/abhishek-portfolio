@@ -65,7 +65,7 @@ export default function Navbar() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg group-hover:shadow-violet-500/30 transition-all">
               <Code2 className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-base" style={{ color: "#ffffff" }}>
+            <span className="font-bold text-base text-heading">
               AK<span className="gradient-text">.</span>
             </span>
           </motion.a>
@@ -77,8 +77,8 @@ export default function Navbar() {
                 onClick={() => handleNavClick(link.href)}
                 className="px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all"
                 style={{
-                  color: activeSection === link.href.slice(1) ? "#ffffff" : "#71717a",
-                  background: activeSection === link.href.slice(1) ? "rgba(255,255,255,0.08)" : "transparent",
+                  color: activeSection === link.href.slice(1) ? "var(--c-heading)" : "var(--c-subtle)",
+                  background: activeSection === link.href.slice(1) ? "rgba(124,58,237,0.12)" : "transparent",
                 }}
               >
                 {link.label}

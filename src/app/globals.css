@@ -1,31 +1,50 @@
 @import "tailwindcss";
 
-/* Force dark background immediately to prevent FOUC */
-html {
-  background-color: #0a0a0f;
-  color-scheme: dark;
-}
-
-html.dark {
-  background-color: #0a0a0f;
+/* =====================
+   CSS DESIGN TOKENS
+   These auto-flip for dark/light mode.
+   Use var(--c-heading) etc instead of hardcoded #fff
+   ===================== */
+:root {
+  /* Dark mode defaults */
+  --c-bg:          #0a0a0f;
+  --c-card:        #111118;
+  --c-heading:     #ffffff;
+  --c-body:        #e4e4e7;
+  --c-muted:       #71717a;
+  --c-subtle:      #52525b;
+  --c-border:      rgba(255,255,255,0.06);
+  --c-card-hover:  rgba(124,58,237,0.07);
 }
 
 html:not(.dark) {
-  background-color: #f4f4f5;
-  color-scheme: light;
+  --c-bg:          #f4f4f5;
+  --c-card:        #ffffff;
+  --c-heading:     #18181b;
+  --c-body:        #27272a;
+  --c-muted:       #52525b;
+  --c-subtle:      #71717a;
+  --c-border:      rgba(0,0,0,0.07);
+  --c-card-hover:  rgba(124,58,237,0.05);
 }
 
+/* Background & body text */
+html        { background-color: var(--c-bg); color-scheme: dark; }
+html.dark   { background-color: var(--c-bg); }
+html:not(.dark) { color-scheme: light; }
+
 body {
-  background-color: #0a0a0f;
-  color: #e4e4e7;
+  background-color: var(--c-bg);
+  color: var(--c-body);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-html:not(.dark) body {
-  background-color: #f4f4f5;
-  color: #18181b;
-}
+/* Utility classes for theme-aware text */
+.text-heading  { color: var(--c-heading); }
+.text-body     { color: var(--c-body); }
+.text-muted    { color: var(--c-muted); }
+.text-subtle   { color: var(--c-subtle); }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 4px; }
@@ -48,24 +67,14 @@ html { scroll-behavior: smooth; }
    BENTO CARD BASE
    ===================== */
 .bento-card {
-  background: #111118;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
   border-radius: 1.25rem;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .bento-card:hover {
   border-color: rgba(124,58,237,0.25);
-  box-shadow: 0 0 40px rgba(124,58,237,0.07);
-}
-
-html:not(.dark) .bento-card {
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.07);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-html:not(.dark) .bento-card:hover {
-  border-color: rgba(124,58,237,0.2);
-  box-shadow: 0 4px 24px rgba(124,58,237,0.1);
+  box-shadow: 0 0 40px var(--c-card-hover);
 }
 
 /* Glassmorphism (nav overlay) */

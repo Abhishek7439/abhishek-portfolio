@@ -50,7 +50,7 @@ export default function BentoHero() {
                 <span className="text-xs text-emerald-400 font-semibold">Available for Opportunities</span>
               </div>
 
-              {/* Avatar circle */}
+              {/* Avatar */}
               <motion.div
                 initial={{ scale: 0, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -64,14 +64,13 @@ export default function BentoHero() {
               </motion.div>
             </div>
 
-            {/* Name */}
+            {/* Name — uses CSS var so it flips in light mode */}
             <h1 className="text-5xl md:text-6xl font-black leading-none tracking-tight mb-3">
               <motion.span
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                style={{ color: "#ffffff" }}
-                className="block"
+                className="text-heading block"
               >
                 Abhishek
               </motion.span>
@@ -87,7 +86,7 @@ export default function BentoHero() {
 
             {/* Typewriter role */}
             <div className="flex items-center gap-2 h-6 mb-3">
-              <span style={{ color: "#52525b" }}>—</span>
+              <span className="text-subtle">—</span>
               <TypeAnimation
                 sequence={personalInfo.roles.flatMap((r) => [r, 2000])}
                 speed={55}
@@ -97,7 +96,7 @@ export default function BentoHero() {
             </div>
 
             {/* Tagline */}
-            <p className="text-sm leading-relaxed max-w-xs mb-4" style={{ color: "#a1a1aa" }}>
+            <p className="text-muted text-sm leading-relaxed max-w-xs mb-4">
               {personalInfo.tagline}
             </p>
 
@@ -109,12 +108,7 @@ export default function BentoHero() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + i * 0.06 }}
-                  className="px-2.5 py-0.5 rounded-full text-xs font-medium border"
-                  style={{
-                    color: "#a78bfa",
-                    borderColor: "rgba(167,139,250,0.2)",
-                    background: "rgba(167,139,250,0.07)",
-                  }}
+                  className="tag-pill"
                 >
                   {chip}
                 </motion.span>
@@ -137,8 +131,7 @@ export default function BentoHero() {
               download
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/12 text-sm font-semibold hover:border-violet-500/40 hover:text-violet-400 transition-all"
-              style={{ color: "#d4d4d8" }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-violet-500/20 text-body text-sm font-semibold hover:border-violet-500/50 hover:text-violet-500 transition-all"
             >
               <Download className="w-3.5 h-3.5" /> Resume
             </motion.a>
@@ -159,9 +152,9 @@ export default function BentoHero() {
               <MapPin className="w-4 h-4 text-rose-400" />
             </div>
             <div>
-              <p className="text-xs font-medium" style={{ color: "#52525b" }}>Location</p>
-              <p className="text-sm font-semibold" style={{ color: "#ffffff" }}>{personalInfo.location}</p>
-              <p className="text-xs mt-0.5" style={{ color: "#52525b" }}>Open to remote &amp; on-site</p>
+              <p className="text-xs font-medium text-subtle">Location</p>
+              <p className="text-sm font-semibold text-heading">{personalInfo.location}</p>
+              <p className="text-xs mt-0.5 text-subtle">Open to remote &amp; on-site</p>
             </div>
           </motion.div>
 
@@ -188,12 +181,12 @@ export default function BentoHero() {
                 >
                   {s.value}
                 </motion.div>
-                <div className="text-xs mt-0.5" style={{ color: "#52525b" }}>{s.label}</div>
+                <div className="text-xs mt-0.5 text-subtle">{s.label}</div>
               </div>
             ))}
           </motion.div>
 
-          {/* Social + DSA */}
+          {/* Social links */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -201,9 +194,9 @@ export default function BentoHero() {
             className="bento-card p-5 flex items-center justify-between"
           >
             {[
-              { icon: Github,   href: personalInfo.github,              label: "GitHub"   },
-              { icon: Linkedin, href: personalInfo.linkedin,            label: "LinkedIn" },
-              { icon: Mail,     href: `mailto:${personalInfo.email}`,   label: "Email"    },
+              { icon: Github,   href: personalInfo.github,            label: "GitHub"   },
+              { icon: Linkedin, href: personalInfo.linkedin,          label: "LinkedIn" },
+              { icon: Mail,     href: `mailto:${personalInfo.email}`, label: "Email"    },
             ].map(({ icon: Icon, href, label }) => (
               <motion.a
                 key={label}
@@ -211,11 +204,10 @@ export default function BentoHero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.1 }}
-                className="flex flex-col items-center gap-1.5 transition-colors group"
-                style={{ color: "#52525b" }}
+                className="flex flex-col items-center gap-1.5 text-muted hover:text-violet-500 transition-colors group"
                 aria-label={label}
               >
-                <div className="w-10 h-10 rounded-xl border border-white/8 bg-white/4 flex items-center justify-center group-hover:border-violet-500/30 group-hover:text-violet-400 transition-all">
+                <div className="w-10 h-10 rounded-xl border border-[var(--c-border)] bg-violet-500/5 flex items-center justify-center group-hover:border-violet-500/30 transition-all">
                   <Icon className="w-4 h-4" />
                 </div>
                 <span className="text-xs">{label}</span>
@@ -223,11 +215,11 @@ export default function BentoHero() {
             ))}
 
             {/* DSA grind */}
-            <div className="flex flex-col items-center gap-1.5">
+            <div className="flex flex-col items-center gap-1.5 text-muted">
               <div className="w-10 h-10 rounded-xl border border-violet-500/25 bg-violet-500/10 flex items-center justify-center">
                 <Zap className="w-4 h-4 text-violet-400" />
               </div>
-              <span className="text-xs" style={{ color: "#52525b" }}>DSA 🔥</span>
+              <span className="text-xs">DSA 🔥</span>
             </div>
           </motion.div>
         </div>
